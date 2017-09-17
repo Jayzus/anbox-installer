@@ -30,31 +30,6 @@ if ! uname -a | grep -q x86_64 ; then
 	exit 1
 fi
 
-SUPPORTED_DISTROS=("Ubuntu" "LinuxMint" "neon" "elementary" "Zorin")
-DISTRIB_ID="$(lsb_release -i -s)"
-
-function contains() {
-	local n=$#
-	local value=${!n}
-	for ((i=1;i < $#;i++)) {
-		if [ "${!i}" == "${value}" ]; then
-			echo "y"
-			return 0
-		fi
-	}
-	return 1
-}
-
-if [ "$(contains "${SUPPORTED_DISTROS[@]}" "$DISTRIB_ID")" != "y" ]; then
-	echo "ERROR: You are running the installer on an unsupported distribution."
-	echo "       At the moment we only support the following distributions:" 
-	echo
-	printf "%s, " "${SUPPORTED_DISTROS[@]}" | cut -d "," -f 1-${#SUPPORTED_DISTROS[@]}
-	echo
-	echo "If your distribution is in the list but you still see this message, open"
-	echo "an issue here: https://github.com/anbox/anbox-installer"
-	exit 1
-fi
 
 echo
 echo "What do you want to do?"
